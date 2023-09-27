@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bykdp3qn1fc1l"]
+
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_fmi1d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jeidk"]
+size = Vector2(151, 170.75)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_fmi1d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -81.625)
+shape = SubResource("RectangleShape2D_jeidk")
+
+[node name="shadow" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(-14, -10)
+rotation = -0.664974
+scale = Vector2(0.979519, 0.65772)
+color = Color(0.776471, 0.352941, 0.372549, 0.345098)
+polygon = PackedVector2Array(-6, -200, -89, -161, -88.688, -86.5767, -46.7288, -45.7056, -47.7227, -10.2066, -38.012, 1.29572, -27, 9, -32.2307, -6.1193, -35.7715, -36.2585, -2.83645, 0.443703, 17.4956, 48.5189, 47.072, 49.3723, 12.9535, 23.0862, -16, -104, 31.2014, -188.024, 20, -230, -12, -260, -4, -236, -34, -233, -6, -224, -35, -207)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(0.799858, 0.724285)
+color = Color(0.776471, 0.352941, 0.372549, 1)
+polygon = PackedVector2Array(-6, -200, -89, -161, -93, -21, -46, -17, -57, 7, -27, 9, -42, -2, -29, -17, 12, -18, 23, 3, 47, -16, 28, -15, 23, -86, -16, -104, -7, -133, 34, -128, 96, -153, 21, -153, 106, -172, 21, -191, 35, -221, 20, -230, -12, -260, -4, -236, -34, -233, -6, -224, -35, -207)
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://drui5ki31g3ml"]
+
+[ext_resource type="Script" path="res://Scenes/GUI/gui.gd" id="1_2j61r"]
+
+[node name="GUI" type="CanvasLayer"]
+script = ExtResource("1_2j61r")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="GrPrairieLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graine Prairie : 0"
+horizontal_alignment = 2
+
+[node name="GrForetLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graine Foret : 0"
+horizontal_alignment = 2
+
+[node name="GrMaraisLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Graine Marais : 0"
+horizontal_alignment = 2

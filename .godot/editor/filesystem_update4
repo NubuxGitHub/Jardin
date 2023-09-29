@@ -1,3 +1,6 @@
 res://world.tscn
 res://Scenes/player.tscn
 res://world.gd
+res://Autoload.gd
+res://Scenes/GUI/gui.gd
+res://Scenes/GUI/gui.tscn

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhuxjdl48j7ti"
-path="res://.godot/imported/tileset_terrains_256X128_01.png-5af730fef3ac57c84451c7541892c01e.ctex"
+uid="uid://b5xmowd0xwx46"
+path="res://.godot/imported/tileset_terrains_128X64_01.png-71541d602b6453b0590f30e76a97f8f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/art/tileset_terrains_256X128_01.png"
-dest_files=["res://.godot/imported/tileset_terrains_256X128_01.png-5af730fef3ac57c84451c7541892c01e.ctex"]
+source_file="res://Assets/art/tileset_terrains_128X64_01.png"
+dest_files=["res://.godot/imported/tileset_terrains_128X64_01.png-71541d602b6453b0590f30e76a97f8f5.ctex"]
 
 [params]
 

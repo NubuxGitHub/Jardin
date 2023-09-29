@@ -1,6 +1,6 @@
 extends Node2D
 
-signal location_changed(Vector2i)
+#signal location_changed(Vector2i)
 
 enum Terrains {
 	EMPTY = -1,
@@ -13,13 +13,13 @@ enum Terrains {
 @onready var player := $Player
 @onready var tile_map := $TileMap
 
-var tile_changed :Vector2i = Vector2i.ZERO:
-	set(value):
-		if value != tile_changed:
-			emit_signal("location_changed",value)
-		tile_changed = value
-	get:
-		return tile_changed
+#var tile_changed :Vector2i = Vector2i.ZERO:
+#	set(value):
+#		if value != tile_changed:
+#			emit_signal("location_changed",value)
+#		tile_changed = value
+#	get:
+#		return tile_changed
 
 var mouse_map_pos :Vector2i
 var mouse_global_pos : Vector2i
@@ -32,6 +32,7 @@ func _ready():
 #		for x in region_size:
 #			tile_map.set_cell(0,Vector2i(x,y),1,Vector2i.ZERO)
 	pass
+
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("left_click"):
@@ -48,17 +49,16 @@ func _unhandled_input(event):
 
 func _process(delta):
 	var player_map_pos = tile_map.local_to_map(Autoload.player_global_pos)
-	tile_changed = player_map_pos
+#	tile_changed = player_map_pos
 
 
-func generate_tiles(tile_pos)->void:
-	var chosen_tile :Vector2i = Vector2i(randi_range(0,2),randi_range(1,2))
-	tile_map.set_cell(0,tile_pos,0,chosen_tile)
-	
+#func generate_tiles(tile_pos)->void:
+#	var chosen_tile :Vector2i = Vector2i(randi_range(0,2),randi_range(1,3))
+#	tile_map.set_cell(0,tile_pos,0,chosen_tile)
 
 
-func _on_location_changed(value):
-	generate_tiles(value)
+#func _on_location_changed(value):
+#	generate_tiles(value)
 
 
 func resolve_end_turn()->void:
@@ -85,6 +85,7 @@ func check_surrounding_tiles(tile:Vector2i, type:int):
 				tile_map.erase_cell(0,tile)
 				build_megatile(tile,type)
 #				print (tile," = MegaTuile de type ",type); return
+
 
 
 func build_megatile(tile,type)->void:

@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cax5r2r0sdcim"]
+[gd_scene load_steps=12 format=3 uid="uid://cax5r2r0sdcim"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_p6cha"]
 [ext_resource type="Texture2D" uid="uid://bhuxjdl48j7ti" path="res://Assets/art/tileset_terrains_256X128_01.png" id="2_07uox"]
+[ext_resource type="Texture2D" uid="uid://b1rql1vxfm4ia" path="res://Assets/art/mega_prairie_01.png" id="2_unid2"]
 [ext_resource type="PackedScene" uid="uid://bykdp3qn1fc1l" path="res://Scenes/player.tscn" id="3_ixioa"]
+[ext_resource type="Texture2D" uid="uid://cx1bv538vts06" path="res://Assets/art/mega_foret_01.png" id="4_2x4yy"]
+[ext_resource type="Texture2D" uid="uid://jed6vdsk17ua" path="res://Assets/art/mega_marais_01.png" id="5_dc1sh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0b36y"]
 texture = ExtResource("2_07uox")
@@ -18,18 +21,40 @@ texture_region_size = Vector2i(256, 128)
 2:2/0 = 0
 3:2/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lodf2"]
+resource_name = "megaPrairie"
+texture = ExtResource("2_unid2")
+texture_region_size = Vector2i(640, 384)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_up73t"]
+resource_name = "megaForet"
+texture = ExtResource("4_2x4yy")
+texture_region_size = Vector2i(640, 380)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eg0ue"]
+resource_name = "megaMarais"
+texture = ExtResource("5_dc1sh")
+texture_region_size = Vector2i(256, 128)
+
 [sub_resource type="TileSet" id="TileSet_80fa7"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(256, 128)
-sources/1 = SubResource("TileSetAtlasSource_0b36y")
+sources/0 = SubResource("TileSetAtlasSource_0b36y")
+sources/1 = SubResource("TileSetAtlasSource_lodf2")
+sources/2 = SubResource("TileSetAtlasSource_up73t")
+sources/3 = SubResource("TileSetAtlasSource_eg0ue")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_p6cha")
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-1, 0)
 tile_set = SubResource("TileSet_80fa7")
 format = 2
+layer_0/tile_data = PackedInt32Array(196610, 65536, 1, 262146, 65536, 1, 196611, 65536, 1, 131075, 65536, 1, 131074, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 65542, 65536, 2, 196614, 65536, 2, 131078, 65536, 2, 65543, 65536, 2, 131079, 65536, 2, 131077, 65536, 2, 65541, 65536, 2, 327685, 131072, 1, 327684, 131072, 1, 393220, 131072, 1, 262149, 131072, 1, 327686, 131072, 1, 393222, 131072, 1, 393221, 131072, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_ixioa")]
 position = Vector2(576, 325)

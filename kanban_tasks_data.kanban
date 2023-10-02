@@ -1,0 +1,50 @@
+{
+	"categories": [
+		{
+			"uuid": "41809ea4-0cfa-48f9-b29d-93026228f654",
+			"title": "Task",
+			"color": "70bafa"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "ac5fdf08-8992-4738-bdfe-dbec5f996fa5",
+			"title": "Todo",
+			"tasks": []
+		},
+		{
+			"uuid": "875d03ef-555a-429b-90bc-685069dd71de",
+			"title": "Doing",
+			"tasks": [
+				"ae1cc993-3b01-4e25-b1c9-83e7eb35c1b8"
+			]
+		},
+		{
+			"uuid": "2c37ad5d-1a7d-482b-8fd9-8c25581f575d",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "ae1cc993-3b01-4e25-b1c9-83e7eb35c1b8",
+			"title": "tilemap custom data -> récolte graines",
+			"description": "",
+			"category": "41809ea4-0cfa-48f9-b29d-93026228f654",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"ac5fdf08-8992-4738-bdfe-dbec5f996fa5"
+			],
+			[
+				"875d03ef-555a-429b-90bc-685069dd71de"
+			],
+			[
+				"2c37ad5d-1a7d-482b-8fd9-8c25581f575d"
+			]
+		]
+	}
+}

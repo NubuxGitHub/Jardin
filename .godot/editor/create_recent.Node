@@ -1,6 +1,6 @@
+Label
 VBoxContainer
 PanelContainer
-Label
 CanvasLayer
 Camera2D
 CollisionShape2D

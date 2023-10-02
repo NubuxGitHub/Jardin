@@ -1,6 +1,6 @@
 extends Node
 
-
+signal turn_ended
 signal seed_number_changed
 
 

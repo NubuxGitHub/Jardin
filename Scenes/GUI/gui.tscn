@@ -26,3 +26,11 @@ horizontal_alignment = 2
 layout_mode = 2
 text = "Graine Marais : 0"
 horizontal_alignment = 2
+
+[node name="Debug" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0

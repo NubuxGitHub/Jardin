@@ -2,4 +2,4 @@ res://world.tscn
 res://Scenes/player.tscn
 res://Scenes/GUI/gui.tscn
 res://world.gd
-res://Scenes/GUI/gui.gd
+res://Autoload.gd

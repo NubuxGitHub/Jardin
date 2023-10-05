@@ -16,7 +16,11 @@ enum {
 	POUBELLE= 101,
 	DESASTRE= 102,
 }
-
+enum MEGATUILE {
+	MEGA_MARAIS  = 1,
+	MEGA_PRAIRIE = 2,
+	MEGA_FORET   = 3,
+}
 @export var region_size = 25
 
 var harvested_tiles :Array[Vector2i] = []
@@ -25,6 +29,7 @@ var planted_tiles   :Array[Vector2i] = []
 var mega_prairie :Array[Vector2i] = []
 var mega_foret   :Array[Vector2i] = []
 var mega_marais  :Array[Vector2i] = []
+var mega_tile_centers :Array[Vector2i]=[]
 
 @onready var player := $Player
 @onready var tile_map := $TileMap
@@ -95,6 +100,7 @@ func on_turn_ended()->void:
 	harvested_tiles.clear()
 	planted_tiles.clear()
 	process_all_region_tiles()
+	generate_seeds_frome_megatiles()
 
 
 func count_surrounding_same_tiles(center_tile:Vector2i, type:int)->int:
@@ -117,17 +123,19 @@ func build_megatile(surround, center_tile, type)->void:
 	var add_to_terrain_type_array :Callable = func(type_array :Array[Vector2i]):
 		for tile in surround:
 			type_array.append(tile)
+
 	match type:
+		MARAIS:
+			megatuile = MEGATUILE.MEGA_MARAIS# ID du tileset megatuile Marais
+			add_to_terrain_type_array.call(mega_marais)
 		PRAIRIE:
-			megatuile = 1# ID du tileset megatuile prairie
+			megatuile = MEGATUILE.MEGA_PRAIRIE# ID du tileset megatuile prairie
 			add_to_terrain_type_array.call(mega_prairie)
 		FORET:
-			megatuile = 2# ID du tileset megatuile Forets
+			megatuile = MEGATUILE.MEGA_FORET# ID du tileset megatuile Forets
 			add_to_terrain_type_array.call(mega_foret)
-		MARAIS:
-			megatuile = 3# ID du tileset megatuile Marais
-			add_to_terrain_type_array.call(mega_marais)
 	tile_map.set_cell(0,center_tile,megatuile,Vector2i.ZERO)
+	mega_tile_centers.append(center_tile)
 
 
 func harvest_seed(center_cell, surround)->void:
@@ -158,14 +166,6 @@ func gather_or_plant_seed()->void:
 		planted_tiles.append(player_map_pos)
 		Autoload.update_seed_library("marais",-1)
 		tile_map.set_cell(1,player_map_pos,4,Vector2i.ZERO)
-# Gather:
-#	if tile_map.get_cell_atlas_coords(1,player_map_pos) == Vector2i.ZERO:
-#		tile_map.erase_cell(1,player_map_pos)
-#		Autoload.seed_library.prairie += 1
-#		Autoload.emit_signal("seed_number_changed")
-#		print("graine glanée")
-#		if planted_tiles.has(player_map_pos):
-#			planted_tiles.erase(player_map_pos)
 
 
 func process_all_region_tiles()->void:
@@ -217,6 +217,20 @@ func process_all_region_tiles()->void:
 				DESASTRE:
 					pass
 #		print("types around ",processed_cell," = ",surrounding_types)
+
+
+func generate_seeds_frome_megatiles()->void:
+	for seed in mega_tile_centers:
+		var mega_type :int = tile_map.get_cell_source_id(0,seed)
+		match mega_type :
+			MEGATUILE.MEGA_MARAIS :
+				tile_map.set_cell(1,seed,4,Vector2i(1,0))
+			MEGATUILE.MEGA_PRAIRIE :
+				tile_map.set_cell(1,seed,4,Vector2i(2,0))
+			MEGATUILE.MEGA_FORET:
+				tile_map.set_cell(1,seed,4,Vector2i(2,0))
+
+
 
 #func get_cluster()->Array[Vector2i]:
 #	var cluster: Array[Vector2i] = []

@@ -1,14 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://cax5r2r0sdcim"]
+[gd_scene load_steps=18 format=3 uid="uid://cax5r2r0sdcim"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_p6cha"]
 [ext_resource type="Texture2D" uid="uid://b1rql1vxfm4ia" path="res://Assets/art/mega_prairie_01.png" id="2_unid2"]
 [ext_resource type="Texture2D" uid="uid://b5xmowd0xwx46" path="res://Assets/art/tileset_terrains_128X64_01.png" id="2_xifnk"]
-[ext_resource type="PackedScene" uid="uid://bykdp3qn1fc1l" path="res://Scenes/player.tscn" id="3_ixioa"]
+[ext_resource type="PackedScene" uid="uid://dn62pgyepoacu" path="res://Scenes/player.tscn" id="3_ixioa"]
 [ext_resource type="Texture2D" uid="uid://cx1bv538vts06" path="res://Assets/art/mega_foret_01.png" id="4_2x4yy"]
 [ext_resource type="Texture2D" uid="uid://imdrvmpnc1ku" path="res://Assets/art/tuiles_mort_01.png" id="4_n6t5v"]
 [ext_resource type="Texture2D" uid="uid://jed6vdsk17ua" path="res://Assets/art/mega_marais_01.png" id="5_dc1sh"]
 [ext_resource type="Texture2D" uid="uid://dvstxny5ewhiv" path="res://Assets/art/objects_01.png" id="6_r42rb"]
 [ext_resource type="PackedScene" uid="uid://drui5ki31g3ml" path="res://Scenes/GUI/gui.tscn" id="7_3jodv"]
+[ext_resource type="Texture2D" uid="uid://5ug2a3d6p43s" path="res://Assets/art/Anim/player_test.png" id="10_5nndd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h10ip"]
 resource_name = "baseTerrains"
@@ -25,10 +26,14 @@ texture_region_size = Vector2i(128, 128)
 2:0/0 = 0
 2:1/0 = 0
 3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, 10)
 3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 10)
 2:2/0 = 0
 3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, 10)
 3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, 10)
 2:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eg0ue"]
@@ -39,31 +44,16 @@ texture_region_size = Vector2i(320, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8te0t"]
 texture = ExtResource("4_n6t5v")
-texture_region_size = Vector2i(128, 76)
+texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 6)
 1:0/0 = 0
-1:0/0/texture_origin = Vector2i(0, 6)
 2:0/0 = 0
-2:0/0/texture_origin = Vector2i(0, 6)
 0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, 6)
 1:1/0 = 0
-1:1/0/texture_origin = Vector2i(0, 6)
 0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, 6)
 1:2/0 = 0
-1:2/0/texture_origin = Vector2i(0, 6)
 2:2/0 = 0
-2:2/0/texture_origin = Vector2i(0, 6)
 2:1/0 = 0
-2:1/0/texture_origin = Vector2i(0, 6)
-0:3/0 = 0
-0:3/0/texture_origin = Vector2i(0, 6)
-1:3/0 = 0
-1:3/0/texture_origin = Vector2i(0, 6)
-2:3/0 = 0
-2:3/0/texture_origin = Vector2i(0, 6)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lodf2"]
 resource_name = "megaPrairie"
@@ -104,7 +94,7 @@ tile_set = SubResource("TileSet_80fa7")
 format = 2
 layer_0/name = "terrain"
 layer_0/z_index = -1
-layer_0/tile_data = PackedInt32Array(524288, 0, 0, 589824, 65536, 0, 655360, 65536, 0, 720896, 0, 0, 786432, 131072, 0, 65537, 65536, 0, 131073, 131072, 0, 196609, 65536, 0, 262145, 0, 0, 524289, 65536, 0, 589825, 131072, 0, 655361, 0, 0, 720897, 65536, 0, 65538, 131072, 0, 131074, 0, 0, 196610, 100, 0, 262146, 0, 0, 327682, 131072, 0, 393218, 0, 0, 458754, 65536, 0, 524290, 131072, 0, 589826, 0, 0, 655362, 0, 0, 720898, 131072, 0, 786434, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 262147, 0, 0, 327683, 0, 0, 393219, 65536, 0, 458755, 100, 0, 524291, 100, 0, 589827, 0, 0, 655363, 65536, 0, 65540, 65536, 0, 131076, 131072, 0, 196612, 0, 0, 262148, 65536, 0, 327684, 65536, 0, 393220, 131072, 0, 458756, 100, 0, 524292, 100, 0, 589828, 100, 0, 655364, 131072, 0, 720900, 65536, 0, 65541, 131072, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 65536, 0, 524293, 100, 0, 589829, 0, 0, 655365, 65536, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 131072, 0, 327686, 65536, 0, 524294, 65536, 0, 589830, 65536, 0, 655366, 0, 0, 720902, 131072, 0, 786438, 131072, 0, 65543, 131072, 0, 131079, 100, 0, 196615, 0, 0, 262151, 65536, 0, 458759, 131072, 0, 524295, 65536, 0, 589831, 131072, 0, 655367, 65536, 0, 720903, 0, 0, 786439, 131072, 0, 196616, 65536, 0, 262152, 0, 0, 327688, 65536, 0, 393224, 65536, 0, 458760, 65536, 0, 524296, 131072, 0, 589832, 131072, 0, 655368, 100, 0, 720904, 100, 0, 786440, 0, 0, 131081, 65536, 0, 196617, 100, 0, 262153, 65536, 0, 327689, 0, 0, 393225, 65536, 0, 458761, 131072, 0, 524297, 100, 0, 589833, 100, 0, 655369, 100, 0, 720905, 131072, 0, 262154, 0, 0, 327690, 65536, 0, 393226, 0, 0, 458762, 0, 0, 524298, 131072, 0, 589834, 65536, 0)
+layer_0/tile_data = PackedInt32Array(524288, 0, 0, 589824, 65536, 0, 655360, 65536, 0, 720896, 0, 0, 786432, 131072, 0, 65537, 65536, 0, 131073, 131072, 0, 196609, 0, 1, 262145, 0, 1, 524289, 65536, 0, 589825, 131072, 0, 655361, 0, 0, 720897, 65536, 0, 65538, 131072, 0, 131074, 0, 1, 196610, 100, 0, 262146, 0, 1, 327682, 131072, 0, 393218, 0, 0, 458754, 65536, 0, 524290, 131172, 0, 589826, 131172, 0, 655362, 0, 0, 720898, 131072, 0, 786434, 0, 0, 65539, 0, 0, 131075, 131072, 3, 196611, 0, 0, 262147, 131072, 3, 327683, 0, 0, 393219, 65536, 0, 458755, 100, 0, 524291, 100, 0, 589827, 0, 0, 655363, 65536, 0, 65540, 65536, 0, 131076, 131072, 3, 196612, 0, 0, 262148, 65536, 0, 327684, 65536, 0, 393220, 131072, 0, 458756, 100, 0, 524292, 100, 0, 589828, 100, 0, 655364, 131072, 0, 720900, 65536, 0, 65541, 131072, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, 458757, 131172, 0, 524293, 100, 0, 589829, 0, 0, 655365, 65536, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 131072, 0, 327686, 65536, 0, 524294, 131172, 0, 589830, 65536, 0, 655366, 0, 0, 720902, 131072, 0, 786438, 131072, 0, 65543, 131072, 0, 131079, 100, 0, 196615, 0, 0, 262151, 65536, 0, 458759, 131072, 0, 524295, 65536, 0, 589831, 131072, 0, 655367, 65536, 0, 720903, 0, 0, 786439, 131072, 0, 196616, 65536, 0, 262152, 0, 0, 327688, 65536, 0, 393224, 65536, 0, 458760, 65536, 0, 524296, 131072, 0, 589832, 131072, 0, 655368, 100, 0, 720904, 100, 0, 786440, 0, 0, 131081, 65536, 0, 196617, 100, 0, 262153, 65536, 0, 327689, 0, 0, 393225, 65536, 0, 458761, 131072, 0, 524297, 100, 0, 589833, 100, 0, 655369, 100, 0, 720905, 131072, 0, 262154, 0, 0, 327690, 65536, 0, 393226, 0, 0, 458762, 0, 0, 524298, 131072, 0, 589834, 65536, 0)
 layer_1/name = "objects"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
@@ -117,3 +107,8 @@ layer_1/tile_data = PackedInt32Array()
 position = Vector2(453, 289)
 
 [node name="GUI" parent="." instance=ExtResource("7_3jodv")]
+
+[node name="placeholder" type="Sprite2D" parent="."]
+position = Vector2(251, 307)
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("10_5nndd")

@@ -3,6 +3,7 @@ extends Node2D
 #signal location_changed(Vector2i)
 
 
+signal player_moved
 #  Les valeurs des terrain correspondent à la valeur.y 
 # de l'atlas_coordinates du tileset "terrain"(ID : 0)
 # la valeur.x correspondant aux differentes variantes du meme type de terrain.
@@ -16,12 +17,13 @@ enum {
 	POUBELLE= 101,
 	DESASTRE= 102,
 }
+
 enum MEGATUILE {
 	MEGA_MARAIS  = 1,
 	MEGA_PRAIRIE = 2,
 	MEGA_FORET   = 3,
 }
-@export var region_size = 25
+#@export var region_size = 25
 
 var harvested_tiles :Array[Vector2i] = []
 var planted_tiles   :Array[Vector2i] = []
@@ -30,6 +32,7 @@ var mega_prairie :Array[Vector2i] = []
 var mega_foret   :Array[Vector2i] = []
 var mega_marais  :Array[Vector2i] = []
 var mega_tile_centers :Array[Vector2i]=[]
+var mouse_map_pos: Vector2i
 
 @onready var player := $Player
 @onready var tile_map := $TileMap
@@ -55,16 +58,23 @@ var get_terrain_type :Callable = func(cell)->int:
 func _ready():
 	Autoload.turn_ended.connect(on_turn_ended)
 	Autoload.update_seed_library("marais", +20)
+	player_moved.connect(player.on_player_moved)
 
 
 func _unhandled_input(event):
+	if Input.is_action_just_pressed("place_player"):
+		player.position = tile_map.map_to_local(mouse_map_pos)
+		emit_signal("player_moved",player.global_position)
+		
 	if Input.is_action_just_pressed("right_click"):
 		var terrain_under_player :int = get_terrain_type.call(player_map_pos)
 		if count_surrounding_same_tiles(player_map_pos,terrain_under_player) == 6:
-			var surround = tile_map.get_surrounding_cells(player_map_pos)
+			var surround :Array[Vector2i]= tile_map.get_surrounding_cells(player_map_pos)
+			surround.append(player_map_pos)
+#			fx_rise_tiles(surround)
 			match terrain_under_player:
 				TERRE:
-					harvest_seed(player_map_pos,surround)
+					harvest_seed(surround)
 				PRAIRIE:
 					build_megatile(surround,player_map_pos,PRAIRIE)
 				FORET:
@@ -84,9 +94,10 @@ func _unhandled_input(event):
 
 
 func _process(delta):
-	player_map_pos = tile_map.local_to_map(Autoload.player_global_pos)
+	player_map_pos = tile_map.local_to_map(player.global_position)
 #	tile_changed = player_map_pos
-	GUI.debug_label(player_map_pos)
+	GUI.debug_label(mouse_map_pos)
+	mouse_map_pos = tile_map.local_to_map(get_global_mouse_position())
 
 
 func on_turn_ended()->void:
@@ -123,7 +134,7 @@ func build_megatile(surround, center_tile, type)->void:
 	var add_to_terrain_type_array :Callable = func(type_array :Array[Vector2i]):
 		for tile in surround:
 			type_array.append(tile)
-
+	
 	match type:
 		MARAIS:
 			megatuile = MEGATUILE.MEGA_MARAIS# ID du tileset megatuile Marais
@@ -138,9 +149,8 @@ func build_megatile(surround, center_tile, type)->void:
 	mega_tile_centers.append(center_tile)
 
 
-func harvest_seed(center_cell, surround)->void:
+func harvest_seed(surround)->void:
 	var harvestable :int = 0
-	surround.append(center_cell)
 	var new_harvested_tiles :Array[Vector2i]=[]
 	for each in surround:
 		if harvested_tiles.has(each):
@@ -231,7 +241,11 @@ func generate_seeds_frome_megatiles()->void:
 				tile_map.set_cell(1,seed,4,Vector2i(2,0))
 
 
-
+#func fx_rise_tiles(tiles :Array[Vector2i]= [])->void:
+#	if tiles != []:
+#		for tile in tiles:
+#			var tile_data :TileData = tile_map.get_cell_tile_data(0,tile)
+#			tile_data.texture_origin.y += 10
 #func get_cluster()->Array[Vector2i]:
 #	var cluster: Array[Vector2i] = []
 #	cluster.append(tile_map.get_surrounding_cells(player_map_pos))

@@ -17,11 +17,12 @@ enum {
 
 #ci_dessous les numeros = source_ID des tileset:
 enum {
-	BASE_TERRAIN = 0,
-	MEGA_MARAIS  = 1,
-	MEGA_PRAIRIE = 2,
-	MEGA_FORET   = 3,
-	OBJECTS      = 4,
+	TERRAIN_TSET = 0,
+	OBJECTS_TSET     = 4,
+	MEGA_MARAIS_TSET  = 10,
+	MEGA_PRAIRIE_TSET = 11,
+	MEGA_FORET_TSET   = 12,
+	DEATH_TSET   = 100,
 }
 
 

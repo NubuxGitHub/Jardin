@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cax5r2r0sdcim"]
+[gd_scene load_steps=17 format=3 uid="uid://cax5r2r0sdcim"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_p6cha"]
 [ext_resource type="Texture2D" uid="uid://b5xmowd0xwx46" path="res://Assets/art/tileset_terrains_128X_01.png" id="2_d5n7x"]
@@ -9,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://jed6vdsk17ua" path="res://Assets/art/mega_marais_01.png" id="5_dc1sh"]
 [ext_resource type="Texture2D" uid="uid://dvstxny5ewhiv" path="res://Assets/art/objects_01.png" id="6_r42rb"]
 [ext_resource type="PackedScene" uid="uid://drui5ki31g3ml" path="res://Scenes/GUI/gui.tscn" id="7_3jodv"]
-[ext_resource type="Texture2D" uid="uid://5ug2a3d6p43s" path="res://Assets/art/Anim/player_test.png" id="10_5nndd"]
-[ext_resource type="Texture2D" uid="uid://ckm30277fqpjg" path="res://Assets/art/Anim/appear.png" id="11_m1lkw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h10ip"]
 resource_name = "baseTerrains"
@@ -82,155 +80,21 @@ tile_size = Vector2i(128, 64)
 sources/0 = SubResource("TileSetAtlasSource_h10ip")
 sources/4 = SubResource("TileSetAtlasSource_ss1t7")
 sources/100 = SubResource("TileSetAtlasSource_8te0t")
-sources/1 = SubResource("TileSetAtlasSource_eg0ue")
-sources/2 = SubResource("TileSetAtlasSource_lodf2")
-sources/3 = SubResource("TileSetAtlasSource_up73t")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y7wtr"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(0, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t07lt"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(256, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_58smh"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(512, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q4o5l"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(768, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aa4y6"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(1024, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fpa26"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(1280, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_af6ad"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(1536, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v4kwm"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(1792, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kedtl"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(2048, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ek43p"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(2304, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hgbgc"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(2560, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_226gr"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(2816, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6qgic"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(3072, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lcmdx"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(3328, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1io2j"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(3584, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nnk8k"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(3840, 0, 256, 465)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s3sxh"]
-atlas = ExtResource("11_m1lkw")
-region = Rect2(4096, 0, 256, 465)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wqxbd"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_m1lkw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y7wtr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t07lt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_58smh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q4o5l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aa4y6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fpa26")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_af6ad")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v4kwm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kedtl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ek43p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hgbgc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_226gr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6qgic")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lcmdx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1io2j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nnk8k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s3sxh")
-}],
-"loop": false,
-"name": &"default",
-"speed": 9.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
+sources/10 = SubResource("TileSetAtlasSource_eg0ue")
+sources/11 = SubResource("TileSetAtlasSource_lodf2")
+sources/12 = SubResource("TileSetAtlasSource_up73t")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_p6cha")
 
 [node name="TileMap" type="TileMap" parent="."]
+unique_name_in_owner = true
 position = Vector2(-1, 0)
 tile_set = SubResource("TileSet_80fa7")
 format = 2
 layer_0/name = "terrain"
 layer_0/z_index = -1
-layer_0/tile_data = PackedInt32Array(524288, 0, 0, 589824, 65536, 0, 655360, 65536, 0, 720896, 0, 0, 786432, 131072, 0, 65537, 65536, 0, 131073, 131072, 0, 196609, 0, 1, 262145, 0, 1, 524289, 65536, 0, 589825, 131072, 0, 655361, 0, 0, 720897, 65536, 0, 65538, 131072, 0, 131074, 0, 1, 196610, 100, 0, 262146, 0, 1, 327682, 131072, 0, 393218, 65536, 0, 458754, 65536, 0, 524290, 131172, 0, 589826, 131172, 0, 655362, 0, 0, 720898, 131072, 0, 786434, 0, 0, 65539, 0, 0, 131075, 65536, 0, 196611, 0, 0, 262147, 100, 1, 327683, 0, 0, 393219, 65536, 0, 458755, 100, 0, 524291, 100, 0, 589827, 0, 0, 655363, 65536, 0, 65540, 65536, 0, 131076, 65536, 0, 196612, 0, 0, 262148, 65636, 1, 327684, 100, 1, 393220, 65536, 0, 458756, 100, 0, 524292, 100, 0, 589828, 100, 0, 655364, 131072, 3, 720900, 65536, 0, 65541, 65536, 0, 131077, 65536, 0, 196613, 65536, 1, 262149, 65636, 1, 327685, 0, 0, 393221, 0, 0, 458757, 131172, 0, 524293, 100, 0, 589829, 131072, 3, 655365, 65536, 0, 65542, 0, 0, 131078, 0, 0, 196614, 65536, 1, 262150, 65536, 1, 327686, 131072, 1, 524294, 131172, 0, 589830, 65536, 0, 655366, 0, 0, 720902, 131072, 0, 786438, 131072, 0, 65543, 131072, 0, 131079, 131072, 1, 196615, 131072, 1, 262151, 65536, 1, 458759, 131072, 0, 524295, 65536, 0, 589831, 131072, 0, 655367, 65536, 0, 720903, 0, 0, 786439, 131072, 0, 196616, 0, 1, 262152, 0, 1, 327688, 65536, 0, 393224, 65536, 0, 458760, 65536, 0, 524296, 131072, 0, 589832, 131072, 0, 655368, 100, 0, 720904, 100, 0, 786440, 0, 0, 131081, 65536, 0, 196617, 100, 0, 262153, 65536, 0, 327689, 0, 0, 458761, 131072, 0, 524297, 100, 0, 589833, 100, 0, 655369, 100, 0, 720905, 131072, 0, 262154, 0, 0, 327690, 65536, 0, 458762, 0, 0, 524298, 131072, 0, 589834, 65536, 0, 720901, 131072, 3, 786436, 131072, 3, 786437, 131072, 3)
+layer_0/tile_data = PackedInt32Array(131078, 100, 0, 65542, 131072, 1, 65541, 131072, 1, 65543, 131072, 1, 131077, 65536, 0, 196614, 65536, 0, 131079, 65536, 0, 131072, 65536, 1, 65537, 0, 2, 131074, 131072, 3, 262147, 65536, 2, 327682, 0, 1, 327684, 0, 1, 196608, 65536, 0, 196609, 65536, 0, 196610, 65536, 0, 393218, 65536, 0, 393219, 65536, 0, 393220, 65536, 0, 327683, 100, 1)
 layer_1/name = "objects"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
@@ -240,18 +104,7 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("3_ixioa")]
+unique_name_in_owner = true
 position = Vector2(453, 289)
 
 [node name="GUI" parent="." instance=ExtResource("7_3jodv")]
-
-[node name="placeholder" type="Sprite2D" parent="."]
-position = Vector2(251, 307)
-scale = Vector2(0.455, 0.455)
-texture = ExtResource("10_5nndd")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(827, 304)
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_wqxbd")
-frame = 17
-frame_progress = 1.0

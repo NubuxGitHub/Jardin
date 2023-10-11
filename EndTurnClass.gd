@@ -29,9 +29,31 @@ func generate_seeds_from_megatiles(mega_tile_centers :Array[Vector2i])->void:
 	for seed in mega_tile_centers:
 		var mega_type :int = tile_map.get_cell_source_id(0,seed)
 		match mega_type :
-			CNST.MEGA_MARAIS :
+			CNST.MEGA_MARAIS_TSET :
 				tile_map.set_cell(CNST.LAYER_OBJECTS,seed,4,Vector2i(1,0))
-			CNST.MEGA_PRAIRIE:
+			CNST.MEGA_PRAIRIE_TSET:
 				tile_map.set_cell(CNST.LAYER_OBJECTS,seed,4,Vector2i(2,0))
-			CNST.MEGA_FORET:
+			CNST.MEGA_FORET_TSET:
 				tile_map.set_cell(CNST.LAYER_OBJECTS,seed,4,Vector2i(2,0))
+
+## retourne un Vector2i dont
+## x = le nombre de types hostiles differents,
+## y = total des tuiles hostiles
+func count_life_and_death( types:Array[int], alignement:String)->Vector2i:
+	var total: Array = []
+	var x_variety_count:int = 0
+	match alignement:
+		"life":
+			for type in types:
+				if type > CNST.TERRE and type < CNST.VILLE:
+					if  not total.has(type):
+						x_variety_count += 1
+					total.append(type)
+		"death":
+			for type in types:
+				if type >= CNST.VILLE:
+					if  not total.has(type):
+						x_variety_count += 1
+					total.append(type)
+	var y_total :int = total.size()
+	return Vector2i(x_variety_count,y_total)

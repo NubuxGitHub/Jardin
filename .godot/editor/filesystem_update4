@@ -1,2 +1,7 @@
-res://Scenes/player.tscn
 res://world.tscn
+res://world.gd
+res://Scenes/player.tscn
+res://EndTurnClass.gd
+res://Constants.gd
+res://Tile.gd
+res://Scenes/TileType.gd

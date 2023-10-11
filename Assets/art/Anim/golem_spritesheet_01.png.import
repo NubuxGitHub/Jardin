@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckm30277fqpjg"
-path="res://.godot/imported/appear.png-4e60243f2aa13f1f461e1fc43232c72c.ctex"
+uid="uid://siwktgi1kdo6"
+path="res://.godot/imported/golem_spritesheet_01.png-ddfba52fe609d43d7672f8ed9b613a22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/art/Anim/appear.png"
-dest_files=["res://.godot/imported/appear.png-4e60243f2aa13f1f461e1fc43232c72c.ctex"]
+source_file="res://Assets/art/Anim/golem_spritesheet_01.png"
+dest_files=["res://.godot/imported/golem_spritesheet_01.png-ddfba52fe609d43d7672f8ed9b613a22.ctex"]
 
 [params]
 

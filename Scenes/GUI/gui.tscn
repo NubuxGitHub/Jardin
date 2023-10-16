@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://drui5ki31g3ml"]
+[gd_scene load_steps=6 format=3 uid="uid://drui5ki31g3ml"]
 
 [ext_resource type="Script" path="res://Scenes/GUI/gui.gd" id="1_2j61r"]
+[ext_resource type="Texture2D" uid="uid://dvstxny5ewhiv" path="res://Assets/art/objects_01.png" id="2_7p526"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubxre"]
+atlas = ExtResource("2_7p526")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78oju"]
+atlas = ExtResource("2_7p526")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3g00"]
+atlas = ExtResource("2_7p526")
+region = Rect2(128, 0, 64, 64)
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_2j61r")
@@ -9,20 +22,36 @@ script = ExtResource("1_2j61r")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer"]
 layout_mode = 2
+columns = 2
 
-[node name="GrMaraisLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="MegaMarais" type="TextureRect" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ubxre")
+expand_mode = 2
+
+[node name="GrMaraisLabel" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
 text = "Graine Marais : 0"
 horizontal_alignment = 2
 
-[node name="GrPrairieLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="MegaPrairie" type="TextureRect" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_78oju")
+expand_mode = 2
+
+[node name="GrPrairieLabel" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
 text = "Graine Prairie : 0"
 horizontal_alignment = 2
 
-[node name="GrForetLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="MegaForet" type="TextureRect" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_d3g00")
+expand_mode = 2
+
+[node name="GrForetLabel" type="Label" parent="PanelContainer/GridContainer"]
 layout_mode = 2
 text = "Graine Foret : 0"
 horizontal_alignment = 2
@@ -34,3 +63,31 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
+
+[node name="MegattilesPCOnt" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -138.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = 100.0
+grow_horizontal = 0
+scale = Vector2(1.00728, 1)
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MegattilesPCOnt"]
+layout_mode = 2
+
+[node name="MegaMlabel" type="Label" parent="MegattilesPCOnt/VBoxContainer"]
+layout_mode = 2
+text = "MegaMarais:"
+
+[node name="MegPrairieLabel" type="Label" parent="MegattilesPCOnt/VBoxContainer"]
+layout_mode = 2
+text = "MegaPrairie:"
+
+[node name="MegForetlabel" type="Label" parent="MegattilesPCOnt/VBoxContainer"]
+layout_mode = 2
+text = "MegaForet:"

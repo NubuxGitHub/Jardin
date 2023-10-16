@@ -1,7 +1,4 @@
 res://world.tscn
-res://world.gd
 res://Scenes/player.tscn
-res://EndTurnClass.gd
-res://Constants.gd
-res://Tile.gd
-res://Scenes/TileType.gd
+res://Scenes/GUI/gui.tscn
+res://Scenes/GUI/megatile_ui_sprite.tscn

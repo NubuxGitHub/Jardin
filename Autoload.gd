@@ -1,9 +1,9 @@
 extends Node
 
 signal turn_ended
+signal mega_tile_added
 signal seed_number_changed
 
-#
 
 
 
@@ -13,6 +13,7 @@ var seed_library :Dictionary = {
 		"prairie"   : 0,
 		"foret"  : 0,
 }
+var mega_tile_tracking :Array[int] = [0,0,0]
 
 
 func update_seed_library(type :String, amount : int = 0)->void :

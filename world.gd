@@ -1,33 +1,9 @@
 extends Node2D
 
-#signal location_changed(Vector2i)
+
 
 
 signal player_moved
-#  Les valeurs des terrain correspondent à la valeur.y 
-# de l'atlas_coordinates du tileset "terrain"(ID : 0)
-# la valeur.x correspondant aux differentes variantes du meme type de terrain.
-#enum {
-#	EMPTY   = -1,
-#	TERRE   = 0,
-#	MARAIS  = 1,
-#	PRAIRIE = 2,
-#	FORET   = 3,
-#	VILLE   = 100,
-#	POUBELLE= 101,
-#	DESASTRE= 102,
-#}
-#
-#enum MEGATUILE {
-#	MARAIS  = 1,
-#	PRAIRIE = 2,
-#	FORET   = 3,
-#}
-##@export var region_size = 25
-#enum LAYERS {
-#	TERRAIN=0,
-#	OBJECTS=1,
-#}
 
 
 var harvested_tiles :Array[Vector2i] = []
@@ -39,40 +15,34 @@ var mega_marais  :Array[Vector2i] = []
 var mega_tile_centers :Array[Vector2i]=[]
 var mouse_map_pos: Vector2i
 
-@onready var player := %Player
-@onready var tile_map :TileMap = %TileMap
-@onready var GUI = $GUI
-
-#var tile_changed :Vector2i = Vector2i.ZERO:
-#	set(value):
-#		if value != tile_changed:
-#			emit_signal("location_changed",value)
-#		tile_changed = value
-#	get:
-#		return tile_changed
 
 var player_map_pos :Vector2i
 var selected_seed_type:int = CNST.MARAIS
 
 var Tile_class :Tile = preload("res://Tile.gd").new()
 var EndTurn :EndTurn = preload("res://EndTurnClass.gd").new()
+var rnd_sprite = randi_range(0,2)
+@onready var player := %Player
+@onready var tile_map :TileMap = %TileMap
+@onready var GUI = $GUI
 
+
+#----------------------------------------------------
 func _ready():
 	Autoload.turn_ended.connect(on_turn_ended)
-	Autoload.update_seed_library("marais", +20)
-	Autoload.update_seed_library("prairie", +20)
-	Autoload.update_seed_library("foret", +20)
+#	Autoload.update_seed_library("marais", +20)
+#	Autoload.update_seed_library("prairie", +20)
+#	Autoload.update_seed_library("foret", +20)
 	player_moved.connect(player.on_player_moved)
 	Tile_class.get_tilemap(tile_map)
 	EndTurn.get_tilemap(tile_map)
-
 
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("move_player") and !Input.is_key_label_pressed(KEY_CTRL):
 		player.position = tile_map.map_to_local(mouse_map_pos)
 		emit_signal("player_moved",player.global_position)
-		
+		Tile_class.gather_seed(mouse_map_pos)
 		
 	if Input.is_action_just_pressed("right_click"):
 		var terrain_under_player :int = Tile_class.check_type(player_map_pos)
@@ -88,13 +58,13 @@ func _unhandled_input(event):
 					build_megatile(surround,player_map_pos,CNST.FORET)
 				CNST.MARAIS:
 					build_megatile(surround,player_map_pos,CNST.MARAIS)
-	
+		
 	if Input.is_action_just_pressed("planter_ramasser"):
-			gather_or_plant_seed(mouse_map_pos)
-	
+			plant_seed(mouse_map_pos)
+		
 	if Input.is_action_pressed("quit_game"):
 		get_tree().quit()
-	
+		
 	if Input.is_action_just_pressed("end_turn"):
 		Autoload.emit_signal("turn_ended")
 
@@ -108,13 +78,13 @@ func _process(delta):
 func on_turn_ended()->void:
 #	reset harvested tiles
 	for harv_tile in harvested_tiles:
-		tile_map.set_cell(CNST.LAYER_TERRAIN,harv_tile,CNST.TERRAIN_TSET,Vector2i(0,0))
-		
-	EndTurn.grow_planted_seeds(planted_tiles)
+#		tile_map.set_cell(CNST.LAYER_TERRAIN,harv_tile,CNST.TERRAIN_TSET,Vector2i(0,0))
+		Tile_class.set_terrain_cell(harv_tile,CNST.TERRE)
 	harvested_tiles.clear()
-	planted_tiles.clear()
 	process_all_region_tiles()
-	EndTurn.generate_seeds_from_megatiles(mega_tile_centers)
+	EndTurn.grow_planted_seeds(planted_tiles)
+	EndTurn.generate_seeds_from_megatiles()
+	planted_tiles.clear()
 
 
 ## détruit les tuiles du groupe et place une Megatuile
@@ -127,17 +97,22 @@ func build_megatile(surround, center_tile, type)->void:
 	var add_to_terrain_type_array :Callable = func(type_array :Array[Vector2i]):
 		for tile in surround:
 			type_array.append(tile)
-	
 	match type:
 		CNST.MARAIS:
 			megatuile = CNST.MEGA_MARAIS_TSET# ID du tileset megatuile Marais
 			add_to_terrain_type_array.call(mega_marais)
+			Autoload.mega_tile_tracking[0] +=1
+			Autoload.emit_signal("mega_tile_added")
 		CNST.PRAIRIE:
 			megatuile = CNST.MEGA_PRAIRIE_TSET# ID du tileset megatuile prairie
 			add_to_terrain_type_array.call(mega_prairie)
+			Autoload.mega_tile_tracking[1]+=1
+			Autoload.emit_signal("mega_tile_added")
 		CNST.FORET:
 			megatuile = CNST.MEGA_FORET_TSET# ID du tileset megatuile Forets
 			add_to_terrain_type_array.call(mega_foret)
+			Autoload.mega_tile_tracking[2] +=1
+			Autoload.emit_signal("mega_tile_added")
 	tile_map.set_cell(CNST.LAYER_TERRAIN,center_tile,megatuile,Vector2i.ZERO)
 	mega_tile_centers.append(center_tile)
 
@@ -160,8 +135,7 @@ func harvest_seed(surround)->void:
 				tile_map.set_cell(CNST.LAYER_TERRAIN,tile,CNST.TERRAIN_TSET,Vector2i(3,0))
 
 
-func gather_or_plant_seed(click_pos:Vector2i)->void:
-#	plant :
+func plant_seed(click_pos:Vector2i)->void:
 	var surround :Array[Vector2i] = tile_map.get_surrounding_cells(player_map_pos)
 	surround.append(player_map_pos)
 	if surround.has(click_pos) and not planted_tiles.has(click_pos):
@@ -183,35 +157,11 @@ func gather_or_plant_seed(click_pos:Vector2i)->void:
 
 
 func process_all_region_tiles()->void:
-	tile_map.force_update()
 	var all_terrain_tiles :Array[Vector2i] = tile_map.get_used_cells(0)
-	# ----------------LAMBDAS FUNCS: ---------------------
-	## recolte des infos sur les tuiles entourant la tuile choisie
-#	var get_surrounding_types :Callable = func(surround)->Array :
-#		var type :Array[int]=[]
-#		var mega_type :Array[String]=[]
-#		var combined_array :Array =[]
-#		for i in surround:
-#		# build type array:
-#			var get_type :int = Tile_class.check_type(i)
-#			if get_type >= 1:
-#				type.append(get_type)
-#		# build  mega-type array:
-#			if  mega_prairie.has(i):mega_type.append("mega_prairie")
-#			if  mega_foret.has(i):  mega_type.append("mega_foret")
-#			if mega_marais.has(i):  mega_type.append("mega_marais")
-#		#return combined arrays:
-#		combined_array.append(type)
-#		combined_array.append(mega_type)
-#		return combined_array
-
-
-	# ------------------PROCESS:-------------
 	for processed_cell in all_terrain_tiles:
 		var type :int = 0
 		var mega_type: int = 1
-		
-		
+	
 		var processed_type :int = Tile_class.check_type(processed_cell)
 		var surrounding_tiles :Array[Vector2i] = tile_map.get_surrounding_cells(processed_cell)
 		var surrounding_types :Array = get_surrounding_types(surrounding_tiles)
@@ -221,28 +171,32 @@ func process_all_region_tiles()->void:
 				CNST.MARAIS:
 					var  death_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"death")
 					if death_tiles_count.y >=3 and not surrounding_types[mega_type].has("mega_marais"):
-						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.TERRE))
+						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.TERRE))
 				CNST.PRAIRIE:
 					var  death_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"death")
 					if death_tiles_count.y >=3 and not surrounding_types[mega_type].has("mega_prairie"):
-						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.MARAIS))
+						Tile_class.set_terrain_cell(processed_cell, CNST.MARAIS)
+#						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.MARAIS))
 				CNST.FORET:
 					var  death_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"death")
 					if death_tiles_count.y >=3 and not surrounding_types[mega_type].has("mega_foret"):
-						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.PRAIRIE))
-						
+#						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.PRAIRIE))
+						Tile_class.set_terrain_cell(processed_cell, CNST.PRAIRIE)
 				CNST.VILLE:
-						var  life_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"life")
-						if life_tiles_count.y >= 3:
-							tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.TERRE))
+					var  life_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"life")
+					if life_tiles_count.y >= 3:
+#						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.TERRE))
+						Tile_class.set_terrain_cell(processed_cell, CNST.TERRE)
 				CNST.POUBELLE:
-						var  life_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"life")
-						if life_tiles_count.y >= 3 and life_tiles_count.x >= 2:
-							tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.TERRE))
+					var  life_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"life")
+					if life_tiles_count.y >= 3 and life_tiles_count.x >= 2:
+#						tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.TERRE))
+						Tile_class.set_terrain_cell(processed_cell, CNST.TERRE)
 				CNST.DESASTRE:
 					var  life_tiles_count:Vector2i = EndTurn.count_life_and_death(surrounding_types[type],"life")
 					if life_tiles_count.y >= 3 and life_tiles_count.x >= 3:
-							tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(0,CNST.TERRE))
+#							tile_map.set_cell(CNST.LAYER_TERRAIN,processed_cell,CNST.TERRAIN_TSET,Vector2i(rnd_sprite,CNST.TERRE))
+						Tile_class.set_terrain_cell(processed_cell, CNST.TERRE)
 #		print("types around ",processed_cell," = ",surrounding_types)
 
 
@@ -256,16 +210,17 @@ func get_surrounding_types (surround)->Array :
 			if get_type >= CNST.MARAIS:
 				type.append(get_type)
 		# build  mega-type array:
-			if  mega_prairie.has(i):mega_type_array.append("mega_prairie")
-			if  mega_foret.has(i):  mega_type_array.append("mega_foret")
-			if mega_marais.has(i):  mega_type_array.append("mega_marais")
+			if  mega_prairie.has(i): mega_type_array.append("mega_prairie")
+			if  mega_foret.has(i):   mega_type_array.append("mega_foret")
+			if  mega_marais.has(i):  mega_type_array.append("mega_marais")
 		#return combined arrays:
 		combined_array.append(type)
 		combined_array.append(mega_type_array)
 		return combined_array
 
 
-
+#func gather_seed(pos:Vector2i):
+#	pass
 ## retourne un Vector2i dont
 ## x = le nombre de types hostiles differents,
 ## y = total des tuiles hostiles

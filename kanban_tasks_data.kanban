@@ -1,0 +1,76 @@
+{
+	"categories": [
+		{
+			"uuid": "41809ea4-0cfa-48f9-b29d-93026228f654",
+			"title": "Task",
+			"color": "70bafa"
+		},
+		{
+			"uuid": "87d391ad-98de-4e20-9a4f-a5a5370b592a",
+			"title": "Bugs",
+			"color": "f12727"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "ac5fdf08-8992-4738-bdfe-dbec5f996fa5",
+			"title": "Todo",
+			"tasks": [
+				"14823698-e0b6-4ad3-97d8-5e844e21a127"
+			]
+		},
+		{
+			"uuid": "875d03ef-555a-429b-90bc-685069dd71de",
+			"title": "Doing",
+			"tasks": [
+				"c1794e4f-bc1f-4c43-a7e3-7e6e6e05c0e1"
+			]
+		},
+		{
+			"uuid": "2c37ad5d-1a7d-482b-8fd9-8c25581f575d",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "7079c2a5-6454-47a5-a8f4-40c759feef2c",
+			"title": "selection des graines",
+			"description": "",
+			"category": "41809ea4-0cfa-48f9-b29d-93026228f654",
+			"steps": []
+		},
+		{
+			"uuid": "14823698-e0b6-4ad3-97d8-5e844e21a127",
+			"title": "Bugs",
+			"description": "Planter puis convertir en mega aux endroits plantés dans le meme tour crée une incoherence...il va falloir empecher de convertir si c'est planté",
+			"category": "87d391ad-98de-4e20-9a4f-a5a5370b592a",
+			"steps": []
+		},
+		{
+			"uuid": "c1794e4f-bc1f-4c43-a7e3-7e6e6e05c0e1",
+			"title": "notes:",
+			"description": "",
+			"category": "41809ea4-0cfa-48f9-b29d-93026228f654",
+			"steps": [
+				{
+					"details": "les  seeds generées \ndoivent etre ajouté a l'inventaire automatiquement",
+					"done": false
+				}
+			]
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"ac5fdf08-8992-4738-bdfe-dbec5f996fa5"
+			],
+			[
+				"875d03ef-555a-429b-90bc-685069dd71de"
+			],
+			[
+				"2c37ad5d-1a7d-482b-8fd9-8c25581f575d"
+			]
+		]
+	}
+}

@@ -1,4 +1,15 @@
+VBoxContainer
+GridContainer
+Label
+TextureRect
+AnimatedSprite2D
+RichTextLabel
+PanelContainer
+AudioStreamPlayer2D
+Sprite2D
 Camera2D
+AnimationPlayer
+CanvasLayer
 CollisionShape2D
 Polygon2D
 CharacterBody2D

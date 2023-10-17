@@ -1,28 +1,123 @@
-[gd_scene load_steps=3 format=3 uid="uid://bykdp3qn1fc1l"]
+[gd_scene load_steps=10 format=3 uid="uid://dn62pgyepoacu"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_fmi1d"]
+[ext_resource type="Texture2D" uid="uid://47mq55433eok" path="res://Assets/art/Anim/player_spritesheet_01.png" id="2_urrqo"]
+[ext_resource type="Texture2D" uid="uid://siwktgi1kdo6" path="res://Assets/art/Anim/golem_spritesheet_01.png" id="3_f6qk0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jeidk"]
-size = Vector2(151, 170.75)
+[sub_resource type="Animation" id="Animation_jy770"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_ncybe"]
+resource_name = "golem_appear"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_h6psr"]
+resource_name = "idle_01"
+length = 1.45
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Golem:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 1, 1.15, 1.3, 1.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+}
+
+[sub_resource type="Animation" id="Animation_5dh4r"]
+resource_name = "pl_sitting_01"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_g4owo"]
+resource_name = "pl_teleport_01"
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m1qnw"]
+_data = {
+"RESET": SubResource("Animation_jy770"),
+"golem_appear": SubResource("Animation_ncybe"),
+"idle_01": SubResource("Animation_h6psr"),
+"pl_sitting_01": SubResource("Animation_5dh4r"),
+"pl_teleport_01": SubResource("Animation_g4owo")
+}
+
+[node name="Player" type="Node2D"]
 script = ExtResource("1_fmi1d")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, -81.625)
-shape = SubResource("RectangleShape2D_jeidk")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m1qnw")
+}
 
-[node name="shadow" type="Polygon2D" parent="."]
+[node name="animal" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-14, -10)
-rotation = -0.664974
-scale = Vector2(0.979519, 0.65772)
-color = Color(0.776471, 0.352941, 0.372549, 0.345098)
-polygon = PackedVector2Array(-6, -200, -89, -161, -88.688, -86.5767, -46.7288, -45.7056, -47.7227, -10.2066, -38.012, 1.29572, -27, 9, -32.2307, -6.1193, -35.7715, -36.2585, -2.83645, 0.443703, 17.4956, 48.5189, 47.072, 49.3723, 12.9535, 23.0862, -16, -104, 31.2014, -188.024, 20, -230, -12, -260, -4, -236, -34, -233, -6, -224, -35, -207)
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-scale = Vector2(0.799858, 0.724285)
-color = Color(0.776471, 0.352941, 0.372549, 1)
-polygon = PackedVector2Array(-6, -200, -89, -161, -93, -21, -46, -17, -57, 7, -27, 9, -42, -2, -29, -17, 12, -18, 23, 3, 47, -16, 28, -15, 23, -86, -16, -104, -7, -133, 34, -128, 96, -153, 21, -153, 106, -172, 21, -191, 35, -221, 20, -230, -12, -260, -4, -236, -34, -233, -6, -224, -35, -207)
+position = Vector2(-8, 12)
+scale = Vector2(2, 2)
+texture = ExtResource("2_urrqo")
+offset = Vector2(0, -16)
+hframes = 6
+vframes = 2
+frame = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Golem" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(5, -56)
+texture = ExtResource("3_f6qk0")
+hframes = 17
+vframes = 2
+frame = 21

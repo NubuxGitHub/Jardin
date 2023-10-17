@@ -1,4 +1,4 @@
 res://world.tscn
 res://Scenes/player.tscn
-res://world.gd
-res://Scenes/player.gd
+res://Scenes/GUI/gui.tscn
+res://Scenes/GUI/megatile_ui_sprite.tscn

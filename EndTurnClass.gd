@@ -30,12 +30,12 @@ func grow_planted_seeds(planted_tiles :Array[Vector2i]):
 
 
 func generate_seeds_from_megatiles()->void:
-#		var marais_update = Autoload.seed_library.marais    + Autoload.mega_tile_tracking[0]
-#		var prairie_update = Autoload.seed_library.prairie  + Autoload.mega_tile_tracking[1]
-#		var foret_update = Autoload.seed_library.foret      + Autoload.mega_tile_tracking[2]
-#		Autoload.update_seed_library("marais",+ Autoload.mega_tile_tracking[1])
+# chaque megaMarais(Autoload.mega_tile_tracking[0]) genere une graine "prairie"
+# chaque megaPrairie (Autoload.mega_tile_tracking[1]) genere une graine "foret"
+# chaque megaForet(Autoload.mega_tile_tracking[2]) genere une graine "marais"
 		Autoload.update_seed_library("prairie", + Autoload.mega_tile_tracking[0])
 		Autoload.update_seed_library("foret", + Autoload.mega_tile_tracking[1])
+		Autoload.update_seed_library("marais", +Autoload.mega_tile_tracking[2])
 #	for seed in mega_tile_centers:
 #		var mega_type :int = tile_map.get_cell_source_id(0,seed)
 #		match mega_type :

@@ -138,21 +138,25 @@ func harvest_seed(surround)->void:
 func plant_seed(click_pos:Vector2i)->void:
 	var surround :Array[Vector2i] = tile_map.get_surrounding_cells(player_map_pos)
 	surround.append(player_map_pos)
+	var is_planted:bool = false
 	if surround.has(click_pos) and not planted_tiles.has(click_pos):
 		match Tile_class.check_type(click_pos):
 			CNST.TERRE:
 				if Autoload.seed_library.marais > 0:
+					is_planted = true
 					Autoload.update_seed_library("marais",-1)
 					tile_map.set_cell(CNST.LAYER_OBJECTS,click_pos,CNST.OBJECTS_TSET,Vector2i.ZERO)
 			CNST.MARAIS:
 				if Autoload.seed_library.prairie > 0:
+					is_planted = true
 					Autoload.update_seed_library("prairie",-1)
 					tile_map.set_cell(CNST.LAYER_OBJECTS,click_pos,CNST.OBJECTS_TSET,Vector2i(1,0))
 			CNST.PRAIRIE:
 				if Autoload.seed_library.foret > 0:
+					is_planted = true
 					Autoload.update_seed_library("foret",-1)
 					tile_map.set_cell(CNST.LAYER_OBJECTS,click_pos,CNST.OBJECTS_TSET,Vector2i(2,0))
-				
+	if is_planted:
 		planted_tiles.append(click_pos)
 
 

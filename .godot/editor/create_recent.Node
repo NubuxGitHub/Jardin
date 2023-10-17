@@ -1,7 +1,8 @@
+TextureRect
+ColorRect
 VBoxContainer
 GridContainer
 Label
-TextureRect
 AnimatedSprite2D
 RichTextLabel
 PanelContainer

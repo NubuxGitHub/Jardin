@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn62pgyepoacu"]
+[gd_scene load_steps=12 format=3 uid="uid://dn62pgyepoacu"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_fmi1d"]
 [ext_resource type="Texture2D" uid="uid://47mq55433eok" path="res://Assets/art/Anim/player_spritesheet_01.png" id="2_urrqo"]
@@ -94,6 +94,12 @@ _data = {
 "pl_teleport_01": SubResource("Animation_g4owo")
 }
 
+[sub_resource type="Gradient" id="Gradient_y8ysj"]
+colors = PackedColorArray(0, 0, 0, 0.27451, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o7lpy"]
+gradient = SubResource("Gradient_y8ysj")
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_fmi1d")
 
@@ -113,6 +119,21 @@ vframes = 2
 frame = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1014.0
+offset_top = -540.0
+offset_right = 2095.0
+offset_bottom = 1542.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_o7lpy")
 
 [node name="Golem" type="Sprite2D" parent="."]
 y_sort_enabled = true

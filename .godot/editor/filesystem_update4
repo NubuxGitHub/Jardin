@@ -1,6 +1,7 @@
 res://world.tscn
+res://Scenes/GUI/gui.gd
 res://Scenes/player.tscn
-res://Scenes/GUI/gui.tscn
 res://Scenes/GUI/megatile_ui_sprite.tscn
-res://EndTurnClass.gd
-res://world.gd
+res://Scenes/GUI/gui.tscn
+res://Scenes/Xtras/camera_rts.tscn
+res://Scenes/Xtras/fx_player.tscn
